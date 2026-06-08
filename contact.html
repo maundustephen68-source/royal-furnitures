@@ -1,56 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Royal Furniture - Contact</title>
-<link rel="stylesheet" href="royal.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Furniture - Contact Us</title>
+  <link rel="stylesheet" href="royal.css">
 </head>
 <body>
-<header>
-  <h1>Contact Us</h1>
-  <p>We Are Here to Help You</p>
-</header>
 
-<nav>
-  <!--Navigation Links-->
-  <ul>
-    <li><a href="Home.html">Home</a></li>
-    <li><a href="PRODUCTS.HTML">Products</a></li>
-    <li> <a href="About Us.html">About Us</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
+  <header>
+    <h1>Contact Us</h1>
+    <p>We Are Here to Help You</p>
+  </header>
 
-</nav>
+  <nav>
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="PRODUCTS.HTML">Products</a></li>
+      <li><a href="About Us.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" id="nav-login-link">Login</a></li>
+      <li><a href="track-order.html" id="nav-track-link" style="display:none">My Orders</a></li>
+      <li><a href="#" id="nav-logout-link" style="display:none" onclick="rfLogout();return false;">Logout</a></li>
+      <li><span id="nav-user-display" style="display:none;color:#C9A84C;padding:16px 14px;font-weight:700;font-size:13px;"></span></li>
+    </ul>
+  </nav>
 
-<section class="section">
-  <h2>Get in Touch</h2>
-  <p>
-    Have questions about our products or services? Reach out to us and our team will respond promptly.
-  </p>
+  <!-- PAGE BANNER — replace images/banner-contact.jpg with your own photo -->
+  <div class="page-banner" style="background-image: url('images/banner-contact.jpg');">
+    <div class="page-banner-overlay">
+      <h2 class="page-banner-title">Let's Talk Furniture</h2>
+      <p class="page-banner-sub">Reach us anytime — we respond fast</p>
+    </div>
+  </div>
 
-  <form>
-    <input type="text" placeholder="Full Name" required><br>
-    <br>
-    <input type="email" placeholder="Email Address" required><br>
-    <br>
-    <textarea rows="5" placeholder="Your Message"></textarea><br>
-    <br>
-    <button type="submit">Send Message</button><br>
-  </form>
-</section>
+  <section class="section">
+    <h2>Send Us a Message</h2>
+    <p>Have questions about our products or services? Fill in the form below and we'll get back to you promptly.</p>
 
-<section class="section highlight">
-  <h2>Contact Information</h2>
-  <p><strong>Email:</strong> info@royalfurniture.com</p>
-  <p><strong>Phone:</strong> +254 700 000000</p>
-  <p><strong>Location:</strong> Nairobi, Kenya</p>
-  <p><strong>Working Hours:</strong> Mon - Sat: 8:00 AM - 6:00 PM</p>
-</section>
+    <form>
+      <input type="text" placeholder="Full Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="tel" placeholder="Phone Number (optional)">
+      <textarea rows="5" placeholder="Your Message (minimum 10 characters)"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <!-- JS will inject WhatsApp link and char counter here -->
+  </section>
 
-<footer>© 2026 Royal Furniture. All Rights Reserved.</footer>
+  <section class="section highlight">
+    <h2>Contact Information</h2>
+    <ul>
+      <li>📧 &nbsp;<strong>Email:</strong> info@royalfurniture.co.ke</li>
+      <li>📞 &nbsp;<strong>Phone:</strong> +254 716 817 495</li>
+      <li>💬 &nbsp;<strong>WhatsApp:</strong>
+        <a href="https://wa.me/254716817495?text=Hello%20Royal%20Furniture!%20I%20need%20assistance."
+           target="_blank" rel="noopener"
+           style="color:#25D366;font-weight:700;">
+          Chat with us on WhatsApp
+        </a>
+      </li>
+      <li>📍 &nbsp;<strong>Location:</strong> Nairobi, Kenya</li>
+      <li>🕐 &nbsp;<strong>Working Hours:</strong> Mon – Sat: 8:00 AM – 6:00 PM</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Prefer to Chat Directly?</h2>
+    <p>Click the button below to open a WhatsApp conversation with our team right now.</p>
+    <p style="margin-top:20px;">
+      <a href="https://wa.me/254716817495?text=Hello%20Royal%20Furniture!%20I%20would%20like%20more%20information%20about%20your%20furniture."
+         target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:14px 32px;border-radius:10px;font-weight:700;font-size:16px;letter-spacing:0.5px;text-transform:uppercase;">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#fff" d="M23.5 8.5A10.44 10.44 0 0 0 16 5.5C10.2 5.5 5.5 10.2 5.5 16c0 1.86.49 3.67 1.42 5.26L5.5 26.5l5.36-1.41A10.46 10.46 0 0 0 16 26.5c5.8 0 10.5-4.7 10.5-10.5 0-2.8-1.09-5.43-3.0-7.5zm-7.5 16.15c-1.58 0-3.13-.42-4.49-1.22l-.32-.19-3.18.83.85-3.1-.21-.33A8.67 8.67 0 0 1 7.32 16c0-4.78 3.9-8.68 8.68-8.68 2.32 0 4.5.9 6.13 2.55A8.61 8.61 0 0 1 24.68 16c0 4.78-3.9 8.65-8.68 8.65zm4.76-6.48c-.26-.13-1.54-.76-1.78-.85-.24-.09-.41-.13-.58.13-.17.26-.65.85-.8 1.02-.15.17-.3.19-.55.06-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.27-1.52-1.42-1.77-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.92-.21-.5-.43-.43-.58-.44h-.5c-.17 0-.45.06-.68.32-.23.26-.89.87-.89 2.12s.91 2.46 1.04 2.63c.13.17 1.8 2.75 4.36 3.85.61.26 1.08.42 1.45.54.61.19 1.16.16 1.6.1.49-.07 1.54-.63 1.76-1.24.22-.61.22-1.13.15-1.24-.06-.11-.23-.17-.49-.3z"/>
+        </svg>
+        Open WhatsApp Chat
+      </a>
+    </p>
+  </section>
+
+  <footer>
+    © 2026 <span>Royal Furniture</span>. All Rights Reserved. | Nairobi, Kenya |
+    <a href="https://wa.me/254716817495" target="_blank" rel="noopener"
+       style="color:#25D366;font-weight:700;margin-left:6px;">WhatsApp Us</a>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
+  <script src="royal.js"></script>
 </body>
 </html>
-
-

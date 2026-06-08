@@ -1,56 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Royal Furniture - About Us</title>
-<link rel="stylesheet" href="royal.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Furniture - About Us</title>
+  <link rel="stylesheet" href="royal.css">
 </head>
 <body>
-<header>
-  <h1>About Royal Furniture</h1>
-</header>
 
-<nav>
-  <ul>
-    <li><a href="Home.html">Home</a></li>
-    <li><a href="PRODUCTS.HTML">Products</a></li>
-    <li><a href="About Us.html">About Us</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+  <header>
+    <h1>About Royal Furniture</h1>
+    <p>Our Story, Mission &amp; Values</p>
+  </header>
 
-<section class="section">
-  <h2>Who We Are</h2>
-  <p>
-    Royal Furniture is a leading provider of high-quality furniture designed to bring elegance and comfort into every home. Since our establishment, we have remained committed to excellence, craftsmanship, and customer satisfaction.
-  </p>
-</section>
+  <nav>
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="PRODUCTS.HTML">Products</a></li>
+      <li><a href="About Us.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" id="nav-login-link">Login</a></li>
+      <li><a href="track-order.html" id="nav-track-link" style="display:none">My Orders</a></li>
+      <li><a href="#" id="nav-logout-link" style="display:none" onclick="rfLogout();return false;">Logout</a></li>
+      <li><span id="nav-user-display" style="display:none;color:#C9A84C;padding:16px 14px;font-weight:700;font-size:13px;"></span></li>
+    </ul>
+  </nav>
 
-<section class="section">
-  <h2>Our Mission</h2>
-  <p>
-    To provide stylish, durable, and affordable furniture that enhances the beauty and functionality of living and working spaces.
-  </p>
-</section>
+  <!-- PAGE BANNER — replace images/banner-about.jpg with your own photo -->
+  <div class="page-banner" style="background-image: url('images/banner-about.jpg');">
+    <div class="page-banner-overlay">
+      <h2 class="page-banner-title">Built on Passion. Crafted with Excellence.</h2>
+      <p class="page-banner-sub">Bringing elegance to every Kenyan home since day one</p>
+    </div>
+  </div>
 
-<section class="section">
-  <h2>Our Values</h2>
-  <ul>
-    <li>✔ Quality craftsmanship</li>
-    <li>✔ Customer satisfaction</li>
-    <li>✔ Innovation and creativity</li>
-    <li>✔ Integrity and trust</li>
-  </ul>
-</section>
+  <section class="section">
+    <h2>Who We Are</h2>
+    <p>
+      Royal Furniture is a leading provider of high-quality furniture designed to bring elegance and
+      comfort into every home. Since our establishment, we have remained committed to excellence,
+      craftsmanship, and customer satisfaction.
+    </p>
+    <p>
+      We serve homeowners, interior designers, corporate offices, and hospitality businesses across
+      Kenya, offering a wide range of living room, bedroom, and office furniture pieces.
+    </p>
+  </section>
 
-<section class="section">
-  <h2>Our Story</h2>
-  <p>
-    What started as a small furniture workshop has grown into a respected brand known for delivering premium furniture solutions. Our journey has been driven by passion, dedication, and a commitment to excellence.
-  </p>
-</section>
+  <section class="section highlight">
+    <h2>Our Mission</h2>
+    <p>
+      To provide stylish, durable, and affordable furniture that enhances the beauty and functionality
+      of living and working spaces — making luxury accessible to every Kenyan household.
+    </p>
+  </section>
 
-<footer>© 2026 Royal Furniture. All Rights Reserved.</footer>
+  <section class="section">
+    <h2>Our Values</h2>
+    <ul>
+      <li>✔&nbsp; Quality craftsmanship in every piece</li>
+      <li>✔&nbsp; Customer satisfaction above all else</li>
+      <li>✔&nbsp; Innovation and creative design</li>
+      <li>✔&nbsp; Integrity, honesty and trust</li>
+      <li>✔&nbsp; Timely delivery and reliable service</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Our Story</h2>
+    <p>
+      What started as a small furniture workshop has grown into a respected brand known for delivering
+      premium furniture solutions across Kenya. Our journey has been driven by passion, dedication,
+      and an unwavering commitment to excellence.
+    </p>
+    <p>
+      Every piece we create tells a story — a story of skilled artisans, premium materials, and a
+      relentless pursuit of perfection. We are proud of how far we have come, and we are just getting started.
+    </p>
+  </section>
+
+  <section class="section highlight">
+    <h2>Get in Touch</h2>
+    <p>
+      Have a project in mind or need custom furniture? We would love to hear from you.
+    </p>
+    <p style="margin-top:16px;">
+      <a href="contact.html" style="display:inline-block;background:#C9A84C;color:#000;padding:13px 32px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:14px;">
+        Contact Us →
+      </a>
+      &nbsp;&nbsp;
+      <a href="https://wa.me/254716817495?text=Hello%20Royal%20Furniture!%20I%20would%20like%20to%20know%20more%20about%20your%20products."
+         target="_blank" rel="noopener"
+         style="display:inline-block;background:#25D366;color:#fff;padding:13px 32px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:14px;margin-top:10px;">
+        💬 WhatsApp Us
+      </a>
+    </p>
+  </section>
+
+  <footer>
+    © 2026 <span>Royal Furniture</span>. All Rights Reserved. | Nairobi, Kenya |
+    <a href="https://wa.me/254716817495" target="_blank" rel="noopener"
+       style="color:#25D366;font-weight:700;margin-left:6px;">WhatsApp Us</a>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
+  <script src="royal.js"></script>
 </body>
 </html>

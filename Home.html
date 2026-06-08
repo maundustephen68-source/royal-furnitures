@@ -1,55 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Royal Furniture - Home</title>
-<link rel="stylesheet" href="royal.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Furniture - Home</title>
+  <link rel="stylesheet" href="royal.css">
 </head>
 <body>
-<header>
-  <h1>Royal Furniture</h1>
-  <p>Where Luxury Meets Comfort</p>
-</header>
 
-<nav>
-  <ul>
-    <li><a href="Home.html">Home</a></li>
-    <li><a href="PRODUCTS.HTML">Products</a></li>
-    <li><a href="About Us.html">About Us</a></li>
-    <li><a href="contact.html">Contact</a></li>   
-  </ul>
-</nav>
+  <header>
+    <h1>Royal Furniture</h1>
+    <p>Where Luxury Meets Comfort</p>
+  </header>
 
-<div class="hero">Crafting Elegant Living Spaces</div>
+  <nav>
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="PRODUCTS.HTML">Products</a></li>
+      <li><a href="About Us.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" id="nav-login-link">Login</a></li>
+      <li><a href="track-order.html" id="nav-track-link" style="display:none">My Orders</a></li>
+      <li><a href="#" id="nav-logout-link" style="display:none" onclick="rfLogout();return false;">Logout</a></li>
+      <li><span id="nav-user-display" style="display:none;color:#C9A84C;padding:16px 14px;font-weight:700;font-size:13px;"></span></li>
+    </ul>
+  </nav>
 
-<section class="section">
-  <h2>Welcome to Royal Furniture</h2>
-  <p>
-    At Royal Furniture, we specialize in creating high-quality furniture that transforms everyday spaces into extraordinary living environments. Our collections are carefully designed to combine luxury, durability, and modern style.
-  </p>
-  <p>
-    Whether you are furnishing a home, office, or commercial space, our pieces are built to provide both comfort and sophistication. We pride ourselves on offering furniture that reflects class, elegance, and long-lasting value.
-  </p>
-</section>
+  <!-- PAGE BANNER — replace images/banner-home.jpg with your own photo -->
+  <div class="page-banner" style="background-image: url('images/banner-home.jpg');">
+    <div class="page-banner-overlay">
+      <h2 class="page-banner-title">Crafting Elegant Living Spaces</h2>
+      <p class="page-banner-sub">Premium furniture for every room in your home</p>
+      <a href="PRODUCTS.HTML" class="page-banner-btn">Shop Now →</a>
+    </div>
+  </div>
 
-<section class="section highlight">
-  <h2>Why Choose Royal Furniture?</h2>
-  <ul>
-    <li>✔ Premium quality craftsmanship</li>
-    <li>✔ Modern and classic designs</li>
-    <li>✔ Affordable luxury furniture</li>
-    <li>✔ Trusted by hundreds of customers</li>
-  </ul>
-</section>
+  <section class="section">
+    <h2>Welcome to Royal Furniture</h2>
+    <p>
+      At Royal Furniture, we specialize in creating high-quality furniture that transforms everyday
+      spaces into extraordinary living environments. Our collections are carefully designed to combine
+      luxury, durability, and modern style.
+    </p>
+    <p>
+      Whether you are furnishing a home, office, or commercial space, our pieces are built to provide
+      both comfort and sophistication. We pride ourselves on offering furniture that reflects class,
+      elegance, and long-lasting value.
+    </p>
+    <p style="margin-top:20px;">
+      <a href="PRODUCTS.HTML" style="display:inline-block;background:#C9A84C;color:#000;padding:13px 32px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:14px;transition:0.3s;"
+         onmouseover="this.style.background='#0D0D0D';this.style.color='#C9A84C';"
+         onmouseout="this.style.background='#C9A84C';this.style.color='#000';">
+        Browse Our Products →
+      </a>
+    </p>
+  </section>
 
-<section class="section">
-  <h2>Our Vision</h2>
-  <p>
-    To become the leading furniture brand known for innovation, elegance, and customer satisfaction across the region.
-  </p>
-</section>
+  <section class="section highlight">
+    <h2>Why Choose Royal Furniture?</h2>
+    <ul>
+      <li>✔&nbsp; Premium quality craftsmanship</li>
+      <li>✔&nbsp; Modern and classic designs</li>
+      <li>✔&nbsp; Affordable luxury furniture</li>
+      <li>✔&nbsp; Trusted by hundreds of customers</li>
+      <li>✔&nbsp; Nairobi-based, Kenya-wide delivery</li>
+    </ul>
+  </section>
 
-<footer>© 2026 Royal Furniture. All Rights Reserved.</footer>
+  <section class="section">
+    <h2>Our Vision</h2>
+    <p>
+      To become the leading furniture brand known for innovation, elegance, and customer satisfaction
+      across the region. We are committed to making luxury furniture accessible to every Kenyan home.
+    </p>
+    <p>
+      <a href="About Us.html" style="color:#C9A84C;font-weight:700;text-decoration:underline;">Learn more about us →</a>
+    </p>
+  </section>
+
+  <footer>
+    © 2026 <span>Royal Furniture</span>. All Rights Reserved. | Nairobi, Kenya |
+    <a href="https://wa.me/254716817495" target="_blank" rel="noopener"
+       style="color:#25D366;font-weight:700;margin-left:6px;">WhatsApp Us</a>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
+  <script src="royal.js"></script>
 </body>
 </html>

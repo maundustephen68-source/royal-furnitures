@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Furniture — My Orders</title>
+  <link rel="stylesheet" href="royal.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <header>
+    <h1>Royal Furniture</h1>
+    <p>My Orders &amp; Tracking</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="PRODUCTS.HTML">Products</a></li>
+      <li><a href="About Us.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" id="nav-login-link">Login</a></li>
+      <li><a href="track-order.html" id="nav-track-link" style="display:none">My Orders</a></li>
+      <li><a href="#" id="nav-logout-link" style="display:none" onclick="rfLogout();return false;">Logout</a></li>
+      <li><span id="nav-user-display" style="display:none;color:#C9A84C;padding:16px 14px;font-weight:700;font-size:13px;"></span></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner" style="background-image: url('images/banner-orders.jpg');">
+    <div class="page-banner-overlay">
+      <h2 class="page-banner-title">My Orders</h2>
+      <p class="page-banner-sub">Track and manage your furniture orders</p>
+    </div>
+  </div>
+
+  <!-- NOT LOGGED IN STATE -->
+  <div id="state-guest" style="display:none;">
+    <section class="section" style="text-align:center;max-width:540px;">
+      <div style="font-size:64px;margin-bottom:16px;">🔐</div>
+      <h2>Please Log In</h2>
+      <p>You need to be logged in to view and track your orders.</p>
+      <a href="login.html" style="display:inline-block;margin-top:20px;background:#C9A84C;color:#000;padding:13px 32px;border-radius:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">
+        Login / Create Account →
+      </a>
+    </section>
+  </div>
+
+  <!-- LOGGED IN DASHBOARD -->
+  <div id="state-dashboard" style="display:none;">
+
+    <!-- User welcome strip -->
+    <div class="dashboard-welcome">
+      <div class="welcome-left">
+        <img id="dash-avatar" src="" alt="" class="dash-avatar" style="display:none;">
+        <div>
+          <h2 id="dash-name">Welcome!</h2>
+          <p id="dash-email" style="color:#777;font-size:13px;"></p>
+        </div>
+      </div>
+      <div class="welcome-right">
+        <a href="PRODUCTS.HTML" class="btn-shop-more">🛒 Shop More Furniture</a>
+        <button class="btn-logout-dash" onclick="rfLogout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Quick-search by Order ID -->
+    <section class="section" style="padding:24px 40px;">
+      <h2>Track an Order</h2>
+      <p style="color:#666;margin-bottom:16px;">Enter an Order ID to see its status.</p>
+      <div class="track-search-row">
+        <input type="text" id="track-input" placeholder="e.g. RF-1718000000000"
+               class="track-input" maxlength="30">
+        <button onclick="handleTrackSearch()" class="btn-auth" style="width:auto;padding:13px 28px;">Track →</button>
+      </div>
+      <div id="track-result"></div>
+    </section>
+
+    <!-- My Orders list -->
+    <section class="section" style="padding:24px 40px;">
+      <h2>My Order History</h2>
+      <div id="orders-loading" style="text-align:center;padding:40px;color:#aaa;">
+        ⏳ Loading your orders…
+      </div>
+      <div id="orders-list"></div>
+      <div id="orders-empty" style="display:none;text-align:center;padding:50px 20px;">
+        <div style="font-size:56px;margin-bottom:14px;">📦</div>
+        <h3 style="color:#555;">No orders yet</h3>
+        <p style="color:#888;margin-bottom:20px;">When you place an order, it will appear here.</p>
+        <a href="PRODUCTS.HTML" style="background:#C9A84C;color:#000;padding:12px 28px;border-radius:8px;font-weight:700;display:inline-block;">Browse Products →</a>
+      </div>
+    </section>
+
+  </div><!-- /#state-dashboard -->
+
+  <footer>
+    © 2026 <span>Royal Furniture</span>. All Rights Reserved. | Nairobi, Kenya |
+    <a href="https://wa.me/254716817495" target="_blank" rel="noopener"
+       style="color:#25D366;font-weight:700;margin-left:6px;">WhatsApp Us</a>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
+  <script src="royal.js"></script>
+
+  <script>
+    const STATUS_STEPS = [
+      'Order Placed',
+      'Confirmed',
+      'Processing',
+      'Ready for Delivery',
+      'Out for Delivery',
+      'Delivered'
+    ];
+
+    const STATUS_COLORS = {
+      'Order Placed':       '#3498db',
+      'Confirmed':          '#9b59b6',
+      'Processing':         '#f39c12',
+      'Ready for Delivery': '#2980b9',
+      'Out for Delivery':   '#e67e22',
+      'Delivered':          '#27ae60',
+      'Cancelled':          '#e74c3c'
+    };
+
+    /* ── Auth state handler ──────────────────────── */
+    window.rfOnAuthStateChanged = async function (user) {
+      if (!user) {
+        document.getElementById('state-guest').style.display     = 'block';
+        document.getElementById('state-dashboard').style.display = 'none';
+        return;
+      }
+      document.getElementById('state-guest').style.display     = 'none';
+      document.getElementById('state-dashboard').style.display = 'block';
+
+      // Populate welcome strip
+      const name = user.displayName || user.email.split('@')[0];
+      document.getElementById('dash-name').textContent  = `Welcome back, ${name}! 👋`;
+      document.getElementById('dash-email').textContent = user.email;
+      if (user.photoURL) {
+        const av = document.getElementById('dash-avatar');
+        av.src = user.photoURL;
+        av.style.display = 'block';
+      }
+
+      // Load orders
+      await loadOrders();
+    };
+
+    /* ── Load orders ────────────────────────────── */
+    async function loadOrders() {
+      const loading = document.getElementById('orders-loading');
+      const list    = document.getElementById('orders-list');
+      const empty   = document.getElementById('orders-empty');
+
+      try {
+        const orders = await rfGetMyOrders();
+        loading.style.display = 'none';
+
+        if (orders.length === 0) {
+          empty.style.display = 'block';
+          return;
+        }
+
+        list.innerHTML = orders.map(o => renderOrderCard(o)).join('');
+      } catch (err) {
+        loading.innerHTML = `<p style="color:#e74c3c;">Error loading orders: ${err.message}</p>`;
+      }
+    }
+
+    /* ── Render an order card ───────────────────── */
+    function renderOrderCard(o) {
+      const statusColor = STATUS_COLORS[o.status] || '#555';
+      const stepIndex   = STATUS_STEPS.indexOf(o.status);
+      const isCancelled = o.status === 'Cancelled';
+
+      const itemsHtml = (o.items || []).map(item =>
+        `<div class="order-item-row">
+          <span>${item.name}</span>
+          <span>x${item.qty}</span>
+          <span>$${(item.price * item.qty).toLocaleString()}</span>
+        </div>`
+      ).join('');
+
+      const stepsHtml = isCancelled
+        ? `<p style="color:#e74c3c;font-weight:700;margin-top:12px;">❌ This order was cancelled.</p>`
+        : STATUS_STEPS.map((step, i) => `
+            <div class="progress-step ${i <= stepIndex ? 'done' : ''} ${i === stepIndex ? 'current' : ''}">
+              <div class="step-dot"></div>
+              <div class="step-label">${step}</div>
+            </div>`
+          ).join('');
+
+      const date = o.placedAt
+        ? (o.placedAt.toDate ? o.placedAt.toDate().toLocaleDateString('en-KE', {day:'numeric',month:'short',year:'numeric'}) : new Date(o.placedAt).toLocaleDateString('en-KE'))
+        : 'N/A';
+
+      return `
+        <div class="order-card">
+          <div class="order-card-header">
+            <div>
+              <span class="order-id">📦 ${o.orderId}</span>
+              <span class="order-date">Placed: ${date}</span>
+            </div>
+            <span class="order-status-badge" style="background:${statusColor};">${o.status}</span>
+          </div>
+
+          <div class="order-items-list">${itemsHtml}</div>
+
+          <div class="order-card-footer">
+            <strong>Total: $${(o.total || 0).toLocaleString()}</strong>
+            ${o.estimatedDelivery && !isCancelled
+              ? `<span class="delivery-eta">🚚 Est. delivery: ${o.estimatedDelivery}</span>`
+              : ''}
+          </div>
+
+          <!-- Progress tracker -->
+          <div class="progress-tracker ${isCancelled ? 'cancelled' : ''}">
+            ${stepsHtml}
+          </div>
+
+          <!-- Delivery info -->
+          ${o.delivery && o.delivery.address ? `
+            <div class="delivery-info">
+              📍 <strong>Delivery to:</strong> ${o.delivery.address}
+              ${o.delivery.phone ? `&nbsp;|&nbsp; 📞 ${o.delivery.phone}` : ''}
+            </div>` : ''}
+
+          <!-- WhatsApp support -->
+          <div style="margin-top:14px;">
+            <a href="https://wa.me/254716817495?text=${encodeURIComponent(`Hello Royal Furniture! I would like an update on my order: ${o.orderId}`)}"
+               target="_blank" rel="noopener"
+               class="wa-order-btn">
+              💬 WhatsApp Us About This Order
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ── Track by Order ID ──────────────────────── */
+    async function handleTrackSearch() {
+      const input  = document.getElementById('track-input').value.trim();
+      const result = document.getElementById('track-result');
+
+      if (!input) { result.innerHTML = '<p style="color:#e74c3c;margin-top:10px;">⚠️ Please enter an order ID.</p>'; return; }
+
+      result.innerHTML = '<p style="color:#aaa;margin-top:10px;">⏳ Searching…</p>';
+      try {
+        const o = await rfGetOrder(input.toUpperCase());
+        result.innerHTML = `<div style="margin-top:16px;">${renderOrderCard(o)}</div>`;
+      } catch (err) {
+        result.innerHTML = `<p style="color:#e74c3c;margin-top:10px;">⚠️ ${err.message}. Please check the Order ID and try again.</p>`;
+      }
+    }
+
+    // Allow pressing Enter in search box
+    document.addEventListener('DOMContentLoaded', function () {
+      const input = document.getElementById('track-input');
+      if (input) input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') handleTrackSearch();
+      });
+    });
+  </script>
+</body>
+</html>
